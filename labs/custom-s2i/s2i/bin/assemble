@@ -1,6 +1,6 @@
 #!/bin/bash -e
 #
-# S2I assemble script for the 's2i-do288-httpd' image.
+# S2I assemble script for the 's2i-do288-go' image.
 # The 'assemble' script builds your application source so that it is ready to run.
 #
 # For more information refer to the documentation:
@@ -8,10 +8,13 @@
 #
 
 if [[ "$1" == "-h" ]]; then
-	# If the 's2i-do288-httpd' assemble script is executed with '-h' flag,
+	# If the 's2i-do288-go' assemble script is executed with '-h' flag,
 	# print the usage.
 	exec /usr/libexec/s2i/usage
 fi
 
-echo "---> Copying source files to web server directory..."
-cp -Rf /tmp/src/. /var/www/html/
+echo "---> Installing application source..."
+cp -Rf /tmp/src/. /opt/app-root/
+
+echo "---> Building application from source..."
+go build app.go
